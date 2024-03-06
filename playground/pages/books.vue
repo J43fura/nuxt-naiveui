@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { definePageMeta, ref, useAsyncData } from '#imports'
+import { definePageMeta, ref } from '#imports'
 
 definePageMeta({
   colorMode: 'light'
@@ -40,7 +40,4 @@ definePageMeta({
 
 const showModal = ref(false)
 
-await useAsyncData(() => new Promise((resolve) => {
-  setTimeout(resolve, 2000)
-}))
 </script>

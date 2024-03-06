@@ -1,6 +1,8 @@
 export default defineNuxtConfig({
   ssr: true,
-
+  imports: {
+    autoImport: true
+  },
   app: {
     head: {
       title: 'Nuxt Naive UI',
@@ -13,7 +15,7 @@ export default defineNuxtConfig({
   },
 
   // css: ["~/assets/fonts/gellix/style.css"],
-  modules: ['../src/module', '@nuxtjs/tailwindcss'],
+  modules: ['../src/module', '@nuxtjs/tailwindcss', '@nuxtjs/supabase'],
   naiveui: {
     colorModePreference: 'light',
     iconDownload: true
@@ -23,5 +25,5 @@ export default defineNuxtConfig({
       write: true
     },
     viewer: false
-  }
+  },
 })

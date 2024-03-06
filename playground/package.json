@@ -2,6 +2,10 @@
   "private": true,
   "name": "my-module-playground",
   "devDependencies": {
+    "@nuxtjs/supabase": "^1.1.6",
     "@nuxtjs/tailwindcss": "^6.11.2"
+  },
+  "scripts": {
+    "dev": "nuxt dev"
   }
 }
