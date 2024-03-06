@@ -98,6 +98,20 @@ const exportSorterAndFilterCsv = () =>
     fileName: "sorter-filter",
     keepOriginalData: false,
   });
+
+const pagination = reactive({
+  page: 1,
+  pageSize: 150,
+  showSizePicker: true,
+  pageSizes: [150, 500, 10000],
+  onChange: (page: number) => {
+    pagination.page = page;
+  },
+  onUpdatePageSize: (pageSize: number) => {
+    pagination.pageSize = pageSize;
+    pagination.page = 1;
+  },
+});
 </script>
 
 <template>
@@ -116,5 +130,6 @@ const exportSorterAndFilterCsv = () =>
     :max-height="700"
     virtual-scroll
     :loading="loading"
+    :pagination="pagination"
   />
 </template>

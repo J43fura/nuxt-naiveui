@@ -109,7 +109,7 @@ onNuxtReady(() => {
 });
 
 onUnmounted(() => {
-	supabase
+  supabase
     .channel("*")
     .on(
       "postgres_changes",
@@ -126,7 +126,22 @@ onUnmounted(() => {
         }
       },
     )
-    .unsubscribe();  });
+    .unsubscribe();
+});
+
+const pagination = reactive({
+  page: 1,
+  pageSize: 150,
+  showSizePicker: true,
+  pageSizes: [150, 500, 10000],
+  onChange: (page: number) => {
+    pagination.page = page;
+  },
+  onUpdatePageSize: (pageSize: number) => {
+    pagination.pageSize = pageSize;
+    pagination.page = 1;
+  },
+});
 </script>
 
 <template>
@@ -136,7 +151,6 @@ onUnmounted(() => {
       Export CSV (displayed data)
     </n-button>
   </n-space>
-
   <n-data-table
     ref="tableRef"
     :bordered="false"
@@ -146,5 +160,6 @@ onUnmounted(() => {
     :max-height="700"
     virtual-scroll
     :loading="loading"
+    :pagination="pagination"
   />
 </template>
