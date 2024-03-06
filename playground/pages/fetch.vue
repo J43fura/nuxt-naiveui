@@ -12,10 +12,10 @@ const props = defineProps({
 const loading = ref(true);
 const supabase = useSupabaseClient();
 const { data: supabaseData } = await useAsyncData("contacts", async () => {
-  const { rows } = await supabase.rpc("get_contacts_table", {
+  const { data } = await supabase.rpc("get_contacts_table", {
     userid: props.USER_ID,
   });
-  return rows;
+  return data;
 });
 type Contact = {
   key: number;
