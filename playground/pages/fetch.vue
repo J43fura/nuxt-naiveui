@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import { NTag, type DataTableColumns, type DataTableInst } from "naive-ui";
+import type { RowData } from "naive-ui/es/data-table/src/interface";
 import { ref } from "vue";
 
-const USER_ID = "8697d21d-0cd4-4818-83f7-eb46639d6c14";
+const props = defineProps({
+  USER_ID: {
+    required: true,
+  },
+});
+
 const loading = ref(true);
 const supabase = useSupabaseClient();
 const { data: supabaseData } = await useAsyncData("contacts", async () => {
   const { rows } = await supabase.rpc("get_contacts_table", {
-    userid: USER_ID,
+    userid: props.USER_ID,
   });
   return rows;
 });
@@ -78,7 +84,7 @@ const createColumns = (): DataTableColumns => {
   ];
 };
 
-const rows = ref(supabaseData);
+const rows = ref<RowData[]>(supabaseData);
 
 loading.value = false;
 const columns = ref<DataTableColumns>(createColumns());

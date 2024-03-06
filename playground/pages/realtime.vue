@@ -2,7 +2,12 @@
 import { NTag, type DataTableColumns, type DataTableInst } from "naive-ui";
 import { ref } from "vue";
 
-const USER_ID = "8697d21d-0cd4-4818-83f7-eb46639d6c14";
+const props = defineProps({
+  USER_ID: {
+    required: true,
+  },
+});
+
 const loading = ref(true);
 const supabase = useSupabaseClient();
 const createColumns = (): DataTableColumns => {
@@ -82,7 +87,6 @@ const contactsCache = new Map();
 onNuxtReady(() => {
   setInterval(() => {
     rows.value = Array.from(contactsCache.values());
-    console.log(rows.value);
   }, 5000);
   supabase
     .channel("*")
@@ -92,7 +96,7 @@ onNuxtReady(() => {
         event: "*",
         schema: "public",
         table: "persons",
-        filter: `user_id=eq.${USER_ID}`,
+        filter: `user_id=eq.${props.USER_ID}`,
       },
       (payload) => {
         const newContact = payload.new as Contact;
@@ -103,6 +107,26 @@ onNuxtReady(() => {
     )
     .subscribe();
 });
+
+onUnmounted(() => {
+	supabase
+    .channel("*")
+    .on(
+      "postgres_changes",
+      {
+        event: "*",
+        schema: "public",
+        table: "persons",
+        filter: `user_id=eq.${props.USER_ID}`,
+      },
+      (payload) => {
+        const newContact = payload.new as Contact;
+        if (newContact) {
+          contactsCache.set(newContact.email, newContact);
+        }
+      },
+    )
+    .unsubscribe();  });
 </script>
 
 <template>

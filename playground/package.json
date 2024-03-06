@@ -6,7 +6,8 @@
     "@nuxtjs/tailwindcss": "^6.11.2"
   },
   "scripts": {
-    "dev": "nuxt dev"
+    "dev": "nuxt dev",
+    "prettier:fix": "prettier --write ."
   },
   "dependencies": {
     "prettier": "^3.2.5"
