@@ -1,29 +1,32 @@
 export default defineNuxtConfig({
   ssr: true,
   imports: {
-    autoImport: true
+    autoImport: true,
   },
   app: {
     head: {
-      title: 'Nuxt Naive UI',
+      title: "Nuxt Naive UI",
       htmlAttrs: {
-        lang: 'en'
-      }
+        lang: "en",
+      },
     },
-    pageTransition: { name: 'page', mode: 'out-in' },
-    layoutTransition: { name: 'layout', mode: 'out-in' }
+    pageTransition: { name: "page", mode: "out-in" },
+    layoutTransition: { name: "layout", mode: "out-in" },
   },
 
   // css: ["~/assets/fonts/gellix/style.css"],
-  modules: ['../src/module', '@nuxtjs/tailwindcss', '@nuxtjs/supabase'],
+  modules: ["../src/module", "@nuxtjs/tailwindcss", "@nuxtjs/supabase"],
   naiveui: {
-    colorModePreference: 'light',
-    iconDownload: true
+    colorModePreference: "light",
+    iconDownload: true,
   },
   tailwindcss: {
     exposeConfig: {
-      write: true
+      write: true,
     },
-    viewer: false
+    viewer: false,
   },
-})
+  supabase: {
+    redirect: false,
+  },
+});

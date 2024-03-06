@@ -1,8 +1,5 @@
 <template>
-  <NaiveLayoutSidebar
-    :routes="navbarRoutes"
-    :drawer-routes="drawerRoutes"
-  >
+  <NaiveLayoutSidebar :routes="navbarRoutes" :drawer-routes="drawerRoutes">
     <template #start>
       <nuxt-link to="/">
         <NaiveIcon name="logos:naiveui" />
@@ -15,10 +12,7 @@
         target="_"
         aria-label="source-code"
       >
-        <n-button
-          text
-          tag="span"
-        >
+        <n-button text tag="span">
           <NaiveIcon name="cib:github" />
         </n-button>
       </NuxtLink>
@@ -38,37 +32,42 @@
 </template>
 
 <script setup lang="ts">
-import type { NavbarRoute } from '../../src/module'
+import type { NavbarRoute } from "../../src/module";
 
 const navbarRoutes: NavbarRoute[] = [
   {
-    label: 'Sample, this is a long long lable',
-    icon: 'ri:home-4-line',
-    path: '/'
+    label: "Sample, this is a long long lable",
+    icon: "ri:home-4-line",
+    path: "/",
   },
   {
-    label: 'Computers',
-    icon: 'material-symbols:computer-outline',
-    path: '/computers'
+    label: "Computers",
+    icon: "material-symbols:computer-outline",
+    path: "/computers",
   },
   {
-    label: 'Categories',
-    icon: 'mdi:bookmark-multiple-outline',
+    label: "Categories",
+    icon: "mdi:bookmark-multiple-outline",
     children: [
       {
-        label: 'Books',
-        icon: 'material-symbols:menu-book-outline-rounded',
-        path: '/books'
-      }
-    ]
-  }
-]
+        label: "Books",
+        icon: "material-symbols:menu-book-outline-rounded",
+        path: "/books",
+      },
+    ],
+  },
+  {
+    label: "Table",
+    icon: "mdi:table",
+    path: "/table",
+  },
+];
 
 const drawerRoutes: NavbarRoute[] = [
   {
-    label: 'Sample, this is a long long lable',
-    icon: 'ri:home-4-line',
-    path: '/'
-  }
-]
+    label: "Sample, this is a long long lable",
+    icon: "ri:home-4-line",
+    path: "/",
+  },
+];
 </script>
