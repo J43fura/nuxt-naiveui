@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { NTag, type DataTableColumns, type DataTableInst } from "naive-ui";
+import {
+  NBadge,
+  NTag,
+  type DataTableColumns,
+  type DataTableInst,
+} from "naive-ui";
 import { ref } from "vue";
 
 const props = defineProps({
@@ -7,6 +12,31 @@ const props = defineProps({
     required: true,
   },
 });
+
+const settingsMapper = {
+  UNKNOWN: {
+    color: "grey",
+    tooltip: "Unknown",
+  },
+  VALID: {
+    color: "green",
+    tooltip: "Valid email address",
+  },
+  INVALID: {
+    color: "red",
+    tooltip: "Invalid email address",
+  },
+  RISKY: {
+    color: "orange",
+    tooltip: "Risky email address",
+  },
+};
+function getColor(status: string) {
+  if (!status) {
+    return;
+  }
+  return settingsMapper[status].color;
+}
 
 const loading = ref(true);
 const supabase = useSupabaseClient();
@@ -63,6 +93,18 @@ const createColumns = (): DataTableColumns => {
             () => tagKey,
           ),
         );
+      },
+    },
+    {
+      title: "status",
+      key: "status",
+      sorter: "default",
+      render(row) {
+        if (!row.status) return;
+        return h(NBadge, {
+          color: getColor(row.status as string),
+          dot: true,
+        });
       },
     },
   ];
